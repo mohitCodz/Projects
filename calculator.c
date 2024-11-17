@@ -1,49 +1,35 @@
-#include<stdio.h>
-  int main()
-  {
-      char  operator;
-      float num1,num2,result;
-   // Intro and Instruction !
-      printf("Hey, Everyone this is my first project A Simple Calculator \n");
-      printf("Firstly select any operator \n");
-      printf("Example :- + , - , * , / \n");
+#include <stdio.h>
 
-      // Operator input
-       printf("Eneter operator :");
-       scanf(" %c", &operator);
-
-       // number input
-       printf("Enter the first number :");
-       scanf("%f", &num1);
-       printf("Enter the second number :");
-       scanf("%f", &num2);
-
-      // condition check
-       if (operator == '+')
-       {
+int main()
+{
+    float num1, num2, result;
+    char operator;
+    
+    printf("Enter the Symbol (+,-,*,/) : ");
+    scanf(" %c",&operator);
+    
+    printf("Enter the number :");
+    scanf("%f",&num1);
+    printf("Enter the number :");
+    scanf("%f",&num2);
+    
+    if(operator == '+'){
         result = num1 + num2;
-        printf("The result of %f and %f is : %f",num1,num2,result);
-       }
-        else if (operator == '-')
-        {
-            result = num1 - num2;
-            printf("The result of %f - %f is : %f",num1,num2,result);
-        }
-        else if (operator == '*')
-        {
-            result = num1 * num2;
-            printf("The result of %f * %f is : %f",num1,num2,result);
-        }
-        else if (operator == '/')
-        { 
-             if (num2 != 0)
-             {
-                result = num1 / num2;
-            printf("The reuslt of %f / %f is : %f",num1,num2,result);
-             }
-        }
-      else{
-         printf("Error found \n Please retry");
-      }
-         return 0; 
-  }
+    }
+    else if(operator == '-'){
+        result = num1 - num2;
+    }
+    else if(operator == '/'){
+        result = num1 / num2;
+    }
+    else if(operator == '*'){
+        result = num1 * num2;
+    }
+    else{
+        printf("Enter the Valid Symbol");
+    }
+    
+    printf("The Result of %.2f and %.2f is %.2f",num1,num2, result);
+   
+    return 0;
+}
