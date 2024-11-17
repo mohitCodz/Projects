@@ -26,7 +26,7 @@ int main()
         result = num1 * num2;
     }
     else{
-        printf("Enter the Valid Symbol");
+        printf("Error Found. please retry !");
     }
     
     printf("The Result of %.2f and %.2f is %.2f",num1,num2, result);
