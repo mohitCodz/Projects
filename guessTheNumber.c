@@ -15,14 +15,14 @@ int main()
         scanf("%d",&guess);
         
         if(guess == randomNumber){
-            printf("Found in %d Attempts",attempt);
+            printf("Congrats !\nNumber is Found in %d Attempts",attempt);
             break;
         }
         else if(randomNumber > guess){
-            printf("Higher Number Please \n");
+            printf("Enter a higher number \n");
         }
         else if(randomNumber < guess){
-            printf("Lower Number Please \n");
+            printf("enter a lower number \n");
         }
         attempt++;
     }
