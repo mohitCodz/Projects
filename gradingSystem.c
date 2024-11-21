@@ -1,7 +1,8 @@
 #include "stdio.h"
 
 // Function to check if the input string contains only alphabets and spaces
-int ValidSubjectName(char check[]) {
+int ValidSubjectName(char check[]) 
+{
     for (int i = 0; check[i] != '\0'; i++) // \0 is null character used to end a string 
     {
         // condition to check the character 
