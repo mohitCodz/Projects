@@ -1,3 +1,10 @@
+/*
+
+ A Grading system which gives grades to suudents based on their percentage 
+ 
+ */
+
+
 #include "stdio.h"
 
 // Function to check if the input string contains only alphabets and spaces
