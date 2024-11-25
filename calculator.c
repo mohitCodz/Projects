@@ -1,3 +1,10 @@
+/*
+
+ Calculator which can perform basic  tasks
+ 
+*/
+
+
 #include <stdio.h>
 
 int main() {
