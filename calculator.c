@@ -1,30 +1,5 @@
 #include <stdio.h>
 
-void drawCalculator() {
-    printf("\t\t\t\t\t\t");
-    printf(" %c %c %c %c %c \n", '1', 186, '2', 186, '3');
-    printf("\t\t\t\t\t\t");
-    printf("%c%c%c%c%c%c%c%c%c%c%c\n", 205, 205, 205, 206, 205, 205, 205, 206, 205, 205, 205);
-    printf("\t\t\t\t\t\t");
-    printf(" %c %c %c %c %c \n", '4', 186, '5', 186, '6');
-    printf("\t\t\t\t\t\t");
-    printf("%c%c%c%c%c%c%c%c%c%c%c\n", 205, 205, 205, 206, 205, 205, 205, 206, 205, 205, 205);
-    printf("\t\t\t\t\t\t");
-    printf(" %c %c %c %c %c \n", '7', 186, '8', 186, '9');
-    printf("\t\t\t\t\t\t");
-    printf("%c%c%c%c%c%c%c%c%c%c%c\n", 205, 205, 205, 206, 205, 205, 205, 206, 205, 205, 205);
-    printf("\t\t\t\t\t\t");
-    printf("     %c %c %c \n", '0', 186, '=');
-    printf("\t\t\t\t\t\t");
-    printf("%c%c%c%c%c%c%c%c%c%c%c\n", 205, 205, 205, 206, 205, 205, 205, 206, 205, 205, 205);
-    printf("\t\t\t\t\t\t");
-    printf("     %c %c %c \n", '+', 186, '-');
-    printf("\t\t\t\t\t\t");
-    printf("%c%c%c%c%c%c%c%c%c%c%c\n", 205, 205, 205, 206, 205, 205, 205, 206, 205, 205, 205);
-    printf("\t\t\t\t\t\t");
-    printf("     %c \n", '*');
-}
-
 int main() {
     float num1, num2, result;
     char operator;

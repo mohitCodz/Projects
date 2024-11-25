@@ -1,4 +1,7 @@
 #include "stdio.h"
+#include<stdlib.h>
+#include <wchar.h>
+#include <locale.h>
 
 char board[3][3] = {{'1', '2', '3'}, {'4', '5', '6'}, {'7', '8', '9'}};
 
@@ -12,9 +15,8 @@ void removeNumber()
         }
     }
 }
-
-void draw()
-{
+/*  void draw()
+  {
     printf("\t\t\t\t\t\t");
     printf(" %c %c %c %c %c \n", board[0][0], 186, board[0][1], 186, board[0][2]);
     printf("\t\t\t\t\t\t");
@@ -26,13 +28,30 @@ void draw()
     printf("\t\t\t\t\t\t");
     printf(" %c %c %c %c %c \n", board[2][0], 186, board[2][1], 186, board[2][2]);
 }
+*/
 
+ void draw() {
+    // Set locale to support Unicode characters
+    setlocale(LC_CTYPE, "");
+
+    wprintf(L"\t\t\t\t\t\t");
+    wprintf(L" %c %lc %c %lc %c \n", board[0][0], L'\u2551', board[0][1], L'\u2551', board[0][2]);
+    wprintf(L"\t\t\t\t\t\t");
+    wprintf(L"%lc%lc%lc%lc%lc%lc%lc%lc%lc%lc%lc\n", 
+            L'\u2550', L'\u2550', L'\u2550', L'\u256C', L'\u2550', L'\u2550', L'\u2550', L'\u256C', L'\u2550', L'\u2550', L'\u2550');
+    wprintf(L"\t\t\t\t\t\t");
+    wprintf(L" %c %lc %c %lc %c \n", board[1][0], L'\u2551', board[1][1], L'\u2551', board[1][2]);
+    wprintf(L"\t\t\t\t\t\t");
+    wprintf(L"%lc%lc%lc%lc%lc%lc%lc%lc%lc%lc%lc\n", 
+            L'\u2550', L'\u2550', L'\u2550', L'\u256C', L'\u2550', L'\u2550', L'\u2550', L'\u256C', L'\u2550', L'\u2550', L'\u2550');
+    wprintf(L"\t\t\t\t\t\t");
+    wprintf(L" %c %lc %c %lc %c \n", board[2][0], L'\u2551', board[2][1], L'\u2551', board[2][2]);
+}
 int check()
 {
-
+    
     // return 1 win
     // return 0 draw / fail /continue
-
     // Check for X
     // Horizontal
     if ((board[0][0] == 'X') && (board[0][1] == 'X') && (board[0][2] == 'X'))
@@ -113,6 +132,17 @@ int check()
 
     return 0;
 }
+int isValidMove(int input) {
+    int row = (input - 1) / 3;
+    int col = (input - 1) % 3;
+    return (input >= 1 && input <= 9 && board[row][col] == ' ');
+}
+
+void inputValue(int input, char player) {
+    int row = (input - 1) / 3;
+    int col = (input - 1) % 3;
+    board[row][col] = player;
+}
 
 void inputValue(int input, int player)
 {
@@ -164,9 +194,15 @@ void inputValue(int input, int player)
     }
 }
 
-void errorCheck()
-{
+int computerMove() {
+    int move;
+    do {
+        move = (rand() % 9) + 1; // Random number between 1 and 9
+    } while (!isValidMove(move));
+    return move;
 }
+
+
 int main()
 {
 
@@ -176,14 +212,13 @@ int main()
     draw();
     printf("Enter any key to Start !!");
     getchar();
-
-    system("cls");
+   system("clear");
     removeNumber();
-    for (int i = 0; i < 10; i++)
+    for (int i = 0; i < 9; i++)
     {
 
         draw();
-        printf("Enter the val 1 - 9 : ");
+        printf("Enter the prsition ( 1-9 ) : ");
         scanf(" %d", &input);
 
         inputValue(input, player);
@@ -193,13 +228,12 @@ int main()
         {
             break;
         }
-        system("cls");
+       system("clear");
         draw();
         player = !player;
-        system("cls");
+        system("clear");
     }
-    system("cls");
-
+     system("clear");
     if (check())
     {
         printf("Player %d wins!\n", player);

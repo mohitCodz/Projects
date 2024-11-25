@@ -20,7 +20,7 @@ int main()
     printf("Enter total number of subjects :");
     if (scanf("%d", &subject) != 1 || subject <= 0) {
         printf("Invalid input\n");
-        return 0;  // Exit the program if input is invalid
+        return 0;  
     }
 
     char subjectName[100]; // Array to store the subject name
@@ -30,7 +30,7 @@ int main()
     {
         // Ask for the name of the subject
         printf("Enter the name of subject %d: ", i + 1);
-        scanf(" %[^\n]%*c", subjectName);  // Read a line with spaces
+        scanf(" %s", subjectName);  // Read a line with spaces
 
        // checking for valid subject name
         if (!ValidSubjectName(subjectName)) {
