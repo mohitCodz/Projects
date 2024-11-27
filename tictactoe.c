@@ -1,11 +1,5 @@
-/*
-
-Tic Tac Toe game
-
-*/
-
 #include "stdio.h"
-#include<stdlib.h>
+#include "stdlib.h"
 #include <wchar.h>
 #include <locale.h>
 
@@ -21,8 +15,11 @@ void removeNumber()
         }
     }
 }
-/*  void draw()
-  {
+
+/* for windows using ascii value
+
+void draw()
+{
     printf("\t\t\t\t\t\t");
     printf(" %c %c %c %c %c \n", board[0][0], 186, board[0][1], 186, board[0][2]);
     printf("\t\t\t\t\t\t");
@@ -35,29 +32,33 @@ void removeNumber()
     printf(" %c %c %c %c %c \n", board[2][0], 186, board[2][1], 186, board[2][2]);
 }
 */
+ // for mac
 
- void draw() {
-    // Set locale to support Unicode characters
-    setlocale(LC_CTYPE, "");
+ void draw()
+{
+    // Set locale for wide-character support
+    setlocale(LC_ALL, "");
 
     wprintf(L"\t\t\t\t\t\t");
     wprintf(L" %c %lc %c %lc %c \n", board[0][0], L'\u2551', board[0][1], L'\u2551', board[0][2]);
     wprintf(L"\t\t\t\t\t\t");
-    wprintf(L"%lc%lc%lc%lc%lc%lc%lc%lc%lc%lc%lc\n", 
-            L'\u2550', L'\u2550', L'\u2550', L'\u256C', L'\u2550', L'\u2550', L'\u2550', L'\u256C', L'\u2550', L'\u2550', L'\u2550');
+    wprintf(L"%lc%lc%lc%lc%lc%lc%lc%lc%lc%lc%lc\n", L'\u2550', L'\u2550', L'\u2550', L'\u256C', L'\u2550', L'\u2550', L'\u2550', L'\u256C', L'\u2550', L'\u2550', L'\u2550');
     wprintf(L"\t\t\t\t\t\t");
     wprintf(L" %c %lc %c %lc %c \n", board[1][0], L'\u2551', board[1][1], L'\u2551', board[1][2]);
     wprintf(L"\t\t\t\t\t\t");
-    wprintf(L"%lc%lc%lc%lc%lc%lc%lc%lc%lc%lc%lc\n", 
-            L'\u2550', L'\u2550', L'\u2550', L'\u256C', L'\u2550', L'\u2550', L'\u2550', L'\u256C', L'\u2550', L'\u2550', L'\u2550');
+    wprintf(L"%lc%lc%lc%lc%lc%lc%lc%lc%lc%lc%lc\n", L'\u2550', L'\u2550', L'\u2550', L'\u256C', L'\u2550', L'\u2550', L'\u2550', L'\u256C', L'\u2550', L'\u2550', L'\u2550');
     wprintf(L"\t\t\t\t\t\t");
     wprintf(L" %c %lc %c %lc %c \n", board[2][0], L'\u2551', board[2][1], L'\u2551', board[2][2]);
 }
+
+
+
 int check()
 {
-    
+
     // return 1 win
     // return 0 draw / fail /continue
+
     // Check for X
     // Horizontal
     if ((board[0][0] == 'X') && (board[0][1] == 'X') && (board[0][2] == 'X'))
@@ -138,17 +139,6 @@ int check()
 
     return 0;
 }
-int isValidMove(int input) {
-    int row = (input - 1) / 3;
-    int col = (input - 1) % 3;
-    return (input >= 1 && input <= 9 && board[row][col] == ' ');
-}
-
-void inputValue(int input, char player) {
-    int row = (input - 1) / 3;
-    int col = (input - 1) % 3;
-    board[row][col] = player;
-}
 
 void inputValue(int input, int player)
 {
@@ -199,16 +189,16 @@ void inputValue(int input, int player)
         board[2][2] = ch;
     }
 }
-
-int computerMove() {
-    int move;
-    do {
-        move = (rand() % 9) + 1; // Random number between 1 and 9
-    } while (!isValidMove(move));
-    return move;
+int isOccupied(int input)
+{
+    int row = (input - 1) / 3;
+    int col = (input - 1) % 3;
+    return (board[row][col] == 'X' || board[row][col] == 'O');
 }
 
-
+void errorCheck()
+{
+}
 int main()
 {
 
@@ -218,13 +208,26 @@ int main()
     draw();
     printf("Enter any key to Start !!");
     getchar();
-   system("clear");
+
+    system("cls");
     removeNumber();
-    for (int i = 0; i < 9; i++)
+    for (int i = 0; i < 10; i++)
     {
 
         draw();
-        printf("Enter the prsition ( 1-9 ) : ");
+        do
+        {
+            printf("Player %d, enter the value 1 - 9: ", player);
+            scanf("%d", &input);
+
+            if (isOccupied(input))
+            {
+                printf("Position already taken. Try again.\n");
+            }
+        } while (isOccupied(input));
+
+
+        printf("Enter the val 1 - 9 : ");
         scanf(" %d", &input);
 
         inputValue(input, player);
@@ -234,12 +237,14 @@ int main()
         {
             break;
         }
-       system("clear");
+
+        system("cls");
         draw();
         player = !player;
-        system("clear");
+        system("cls");
     }
-     system("clear");
+    system("cls");
+
     if (check())
     {
         printf("Player %d wins!\n", player);
