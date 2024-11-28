@@ -225,11 +225,6 @@ int main()
                 printf("Position already taken. Try again.\n");
             }
         } while (isOccupied(input));
-
-
-        printf("Enter the val 1 - 9 : ");
-        scanf(" %d", &input);
-
         inputValue(input, player);
         status = check();
 
@@ -238,12 +233,12 @@ int main()
             break;
         }
 
-        system("cls");
+        system("clear");
         draw();
         player = !player;
-        system("cls");
+        system("clear");
     }
-    system("cls");
+    system("clear");
 
     if (check())
     {
