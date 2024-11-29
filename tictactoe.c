@@ -1,7 +1,12 @@
+/*
+Tic Tac Toe game
+*/
+
 #include "stdio.h"
 #include "stdlib.h"
 #include <wchar.h>
 #include <locale.h>
+#include <unistd.h>
 
 char board[3][3] = {{'1', '2', '3'}, {'4', '5', '6'}, {'7', '8', '9'}};
 
@@ -15,9 +20,7 @@ void removeNumber()
         }
     }
 }
-
-/* for windows using ascii value
-
+/*
 void draw()
 {
     printf("\t\t\t\t\t\t");
@@ -32,9 +35,9 @@ void draw()
     printf(" %c %c %c %c %c \n", board[2][0], 186, board[2][1], 186, board[2][2]);
 }
 */
- // for mac
 
- void draw()
+// it will draw the board
+void draw()
 {
     // Set locale for wide-character support
     setlocale(LC_ALL, "");
@@ -51,15 +54,13 @@ void draw()
     wprintf(L" %c %lc %c %lc %c \n", board[2][0], L'\u2551', board[2][1], L'\u2551', board[2][2]);
 }
 
-
-
 int check()
 {
 
     // return 1 win
     // return 0 draw / fail /continue
 
-    // Check for X
+    // Check for X player
     // Horizontal
     if ((board[0][0] == 'X') && (board[0][1] == 'X') && (board[0][2] == 'X'))
     {
@@ -98,7 +99,7 @@ int check()
         return 1;
     }
 
-    // Check for O
+    // Check for O player
     // Horizontal
     if ((board[0][0] == 'O') && (board[0][1] == 'O') && (board[0][2] == 'O'))
     {
@@ -198,8 +199,88 @@ int isOccupied(int input)
 
 void errorCheck()
 {
+      
 }
-int main()
+void inputValuee(int input, char player) {
+    int row = (input - 1) / 3;
+    int col = (input - 1) % 3;
+    board[row][col] = player;
+}
+
+int isValidMove(int input) {
+    int row = (input - 1) / 3;
+    int col = (input - 1) % 3;
+    return (input >= 1 && input <= 9 && board[row][col] == ' ');
+}
+int computerMove() {
+    int move;
+    do {
+        move = (rand() % 9) + 1; // Random number between 1 and 9
+    } while (!isValidMove(move));
+    return move;
+}
+// this is main function
+
+
+int main() {
+
+    int choice;
+    printf("Enter 1 for two player and 0 to play with computer \n");
+    scanf("%d", &choice);
+
+    if (choice == 1)
+    {
+        int input;
+    char player = 'X'; // Player starts with 'X'
+    int status = 0;
+ srand(time(0)); // Random number generation
+
+    draw();
+    printf("Press any key to start the game!\n");
+    getchar();
+
+    system("clear");
+    removeNumber();
+
+    for (int i = 0; i < 9; i++) {
+        draw();
+
+        if (player == 'X') {
+            // Human player
+            printf("Your turn! Enter a number (1-9): ");
+            scanf(" %d", &input);
+            while (!isValidMove(input)) {
+                printf("Invalid move! Enter a valid number (1-9): ");
+                scanf(" %d", &input);
+            }
+        } else {
+            sleep(2); 
+            // Computer player
+            printf("Computer's turn...\n");
+            input = computerMove();
+            printf("Computer chose: %d\n", input);
+        }
+
+        inputValue(input, player);
+        status = check();
+        if (status == 1) {
+            system("clear");
+            draw();
+            printf("%c wins!\n", player);
+            return 0;
+        }
+
+        player = (player == 'X') ? 'O' : 'X'; // Switch turns
+        system("clear");
+    }
+
+    draw();
+    printf("It's a draw!\n");
+    return 0;
+}
+    }
+
+    else if (choice == 0)
 {
 
     int input;
@@ -248,3 +329,5 @@ int main()
     draw();
     return 0;
 }
+    }
+    
