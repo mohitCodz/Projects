@@ -199,136 +199,152 @@ int isOccupied(int input)
 
 void errorCheck()
 {
-      
 }
-void inputValuee(int input, char player) {
+void inputValuee(int input, char player)
+{
     int row = (input - 1) / 3;
     int col = (input - 1) % 3;
     board[row][col] = player;
 }
 
-int isValidMove(int input) {
+int isValidMove(int input)
+{
     int row = (input - 1) / 3;
     int col = (input - 1) % 3;
     return (input >= 1 && input <= 9 && board[row][col] == ' ');
 }
-int computerMove() {
+int computerMove()
+{
     int move;
-    do {
+    do
+    {
         move = (rand() % 9) + 1; // Random number between 1 and 9
     } while (!isValidMove(move));
     return move;
 }
 // this is main function
 
-
-int main() {
+int main()
+{
 
     int choice;
     printf("Enter 1 for two player and 0 to play with computer \n");
     scanf("%d", &choice);
+    char player = 'X'; 
 
     if (choice == 1)
     {
         int input;
-    char player = 'X'; // Player starts with 'X'
-    int status = 0;
-    srand(time(0)); // Random number generation
+        // Player starts with 'X'
+        int status = 0;
+        srand(time(0)); // Random number generation
 
-    draw();
-    printf("Press any key to start the game!\n");
-    getchar();
-
-    system("clear");
-    removeNumber();
-
-    for (int i = 0; i < 9; i++) {
         draw();
+        printf("Press any key to start the game!\n");
+        getchar();
 
-        if (player == 'X') {
-            // Human player
-            printf("Your turn! Enter a number (1-9): ");
-            scanf(" %d", &input);
-            while (!isValidMove(input)) {
-                printf("Invalid move! Enter a valid number (1-9): ");
-                scanf(" %d", &input);
-            }
-        } else {
-            sleep(2); 
-            // Computer player
-            printf("Computer's turn...\n");
-            input = computerMove();
-            printf("Computer chose: %d\n", input);
-        }
-
-        inputValue(input, player);
-        status = check();
-        if (status == 1) {
-            system("clear");
-            draw();
-            printf("%c wins!\n", player);
-            return 0;
-        }
-
-        player = (player == 'X') ? 'O' : 'X'; // Switch turns
         system("clear");
-    }
+        removeNumber();
 
-    draw();
-    printf("It's a draw!\n");
-    return 0;
-}
-    }
-
-else if (choice == 0)
-{
-    int input;
-    char player = 'X'; // Human starts with 'X'
-    int status = 0;
-    srand(time(0)); // Random number generation
-
-    draw();
-    printf("Press any key to start the game!\n");
-    getchar();
-
-    system("clear");
-    removeNumber();
-
-    for (int i = 0; i < 9; i++) {
-        draw();
-
-        if (player == 'X') {
-            // Human player
-            printf("Your turn! Enter a number (1-9): ");
-            scanf(" %d", &input);
-            while (!isValidMove(input)) {
-                printf("Invalid move! Enter a valid number (1-9): ");
-                scanf(" %d", &input);
-            }
-        } else {
-            sleep(2); 
-            // Computer player
-            printf("Computer's turn...\n");
-            input = computerMove();
-            printf("Computer chose: %d\n", input);
-        }
-
-        inputValue(input, player);
-        if (check()) {
-            system("clear");
+        for (int i = 0; i < 9; i++)
+        {
             draw();
+
             if (player == 'X')
-                printf("You win!\n");
+            {
+                // Human player
+                printf("Your turn! Enter a number (1-9): ");
+                scanf(" %d", &input);
+                while (!isValidMove(input))
+                {
+                    printf("Invalid move! Enter a valid number (1-9): ");
+                    scanf(" %d", &input);
+                }
+            }
             else
-                printf("Computer wins!\n");
-            return 0;
+            {
+                sleep(2);
+                // Computer player
+                printf("Computer's turn...\n");
+                input = computerMove();
+                printf("Computer chose: %d\n", input);
+            }
+
+            inputValue(input, player);
+            status = check();
+            if (status == 1)
+            {
+                system("clear");
+                draw();
+                printf("%c wins!\n", player);
+                return 0;
+            }
+
+            player = (player == 'X') ? 'O' : 'X'; // Switch turns
+            system("clear");
         }
 
-        player = (player == 'X') ? 'O' : 'X'; // Switch turns
-        system("cls");
+        draw();
+        printf("It's a draw!\n");
+        
     }
 
-    draw();
-    printf("It's a draw!\n");
+    else if (choice == 0)
+    {
+        int input;
+        // Human starts with 'X'
+        int status = 0;
+        srand(time(0)); // Random number generation
+
+        draw();
+        printf("Press any key to start the game!\n");
+        getchar();
+
+        system("clear");
+        removeNumber();
+
+        for (int i = 0; i < 9; i++)
+        {
+            draw();
+
+            if (player == 'X')
+            {
+                // Human player
+                printf("Your turn! Enter a number (1-9): ");
+                scanf(" %d", &input);
+                while (!isValidMove(input))
+                {
+                    printf("Invalid move! Enter a valid number (1-9): ");
+                    scanf(" %d", &input);
+                }
+            }
+            else
+            {
+                sleep(2);
+                // Computer player
+                printf("Computer's turn...\n");
+                input = computerMove();
+                printf("Computer chose: %d\n", input);
+            }
+
+            inputValue(input, player);
+            if (check())
+            {
+                system("clear");
+                draw();
+                if (player == 'X')
+                    printf("You win!\n");
+                else
+                    printf("Computer wins!\n");
+                return 0;
+            }
+
+            player = (player == 'X') ? 'O' : 'X'; // Switch turns
+            system("cls");
+        }
+
+        draw();
+        printf("It's a draw!\n");
+    }
     return 0;
 }
