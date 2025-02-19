@@ -270,7 +270,7 @@ int main()
                 printf("Computer chose: %d\n", input);
             }
 
-            inputValue(input, player);
+            inputValue(input, player); 
             status = check();
             if (status == 1)
             {
